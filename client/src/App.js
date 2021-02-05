@@ -6,9 +6,11 @@ import { getNotes } from './actions/notes-action';
 
 import Form from './components/Form/Form';
 import Notes from './components/Notes/Notes';
+import useStyles from './App.styles';
 
 const App = () => {
   const [currentId, setCurrentId] = useState(null);
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,8 +18,10 @@ const App = () => {
   }, [currentId, dispatch]);
 
   return (
-    <Container maxWidth='lg'>
-      <Typography align='center'>NotePad Applications</Typography>
+    <Container maxWidth='lg' minWidth='xs' className={classes.container}>
+      <Typography className={classes.mainTitle} align='center'>
+        NotePad Applications
+      </Typography>
       <Container>
         <Grid
           container

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Paper } from '@material-ui/core';
 
 import { useDispatch } from 'react-redux';
-import { createNote, updateNote } from '../../actions/notes-action';
+import { createNote, updateNote, deleteNote } from '../../actions/notes-action';
 
 import useStyles from './Form.styles';
 
@@ -98,7 +98,7 @@ const Form = ({ selectedNote, currentId, setCurrentId }) => {
           variant='contained'
           size='large'
           width='20%'
-          onClick={clear}
+          onClick={() => dispatch(deleteNote(currentId))}
         >
           Delete
         </Button>
