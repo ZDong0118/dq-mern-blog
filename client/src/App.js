@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Typography, Grid } from '@material-ui/core';
 
+import Form from './components/Form/Form';
+
 const App = () => {
   return (
     <Container maxWidth='lg'>
@@ -13,7 +15,7 @@ const App = () => {
           alignItems="flex-start"
         >
           <Grid item xs={12}>
-            Test Note Title
+            <Form />
           </Grid>
           <Grid item xs={12}>
             Test Note Content
