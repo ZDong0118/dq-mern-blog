@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import noteRoutes from './routes/notes.routes.js';
 
 const app = express();
 dotenv.config();
@@ -10,6 +11,8 @@ dotenv.config();
 app.use(bodyParser.json({limit: '30mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
 app.use(cors());
+
+app.use('/notes', noteRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello DQ-MERN-Blog');
