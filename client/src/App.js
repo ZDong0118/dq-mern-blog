@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { getNotes } from './actions/notes-action';
 
 import Form from './components/Form/Form';
+import Notes from './components/Notes/Notes';
 
 const App = () => {
   const [currentId, setCurrentId] = useState(null);
@@ -28,7 +29,7 @@ const App = () => {
             <Form currentId={currentId} setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12}>
-            Test Note Content
+            <Notes currentId={currentId} setCurrentId={setCurrentId} />
           </Grid>
         </Grid>
       </Container>

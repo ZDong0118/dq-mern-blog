@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Paper } from '@material-ui/core';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { createNote } from '../../actions/notes-action';
+import { useDispatch } from 'react-redux';
+import { createNote, updateNote } from '../../actions/notes-action';
 
 import useStyles from './Form.styles';
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({ selectedNote, currentId, setCurrentId }) => {
   const classes = useStyles();
 
   const [noteData, setNoteData] = useState({
@@ -14,18 +14,25 @@ const Form = ({ currentId, setCurrentId }) => {
     note: '',
   });
 
-  const note = useSelector((state) =>
-    currentId ? state.notes.find((note) => note._id === currentId) : null
-  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (note) setNoteData(note);
-  }, [note]);
+    if (selectedNote) setNoteData(selectedNote);
+  }, [selectedNote]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createNote(noteData));
+
+    if (!noteData.title || !noteData.note) {
+      console.log('Please enter the title and note!')
+    } else {
+      if (currentId) {
+        dispatch(updateNote(currentId, noteData));
+      } else {
+        dispatch(createNote(noteData));
+      }
+    }
+    
     clear();
   };
 
@@ -44,6 +51,10 @@ const Form = ({ currentId, setCurrentId }) => {
           variant='outlined'
           label='Title'
           value={noteData.title}
+          inputProps={{
+            maxLength: 255,
+            className: classes.multilineColor
+          }}
           onChange={(e) => setNoteData({ ...noteData, title: e.target.value })}
         />
         <TextField
@@ -54,17 +65,34 @@ const Form = ({ currentId, setCurrentId }) => {
           fullWidth
           multiline
           value={noteData.note}
+          inputProps={{
+            maxLength: 1000,
+            className: classes.multilineColor
+          }}
           onChange={(e) => setNoteData({ ...noteData, note: e.target.value })}
         />
-        <Button
-          className={`${classes.button} ${classes.buttonSave}`}
-          variant='contained'
-          size='large'
-          type='submit'
-          width='20%'
-        >
-          Save
-        </Button>
+        {currentId ? (
+          <Button
+            className={`${classes.button} ${classes.buttonUpdate}`}
+            variant='contained'
+            size='large'
+            type='submit'
+            width='20%'
+          >
+            Update
+          </Button>
+        ) : (
+          <Button
+            className={`${classes.button} ${classes.buttonSave}`}
+            variant='contained'
+            size='large'
+            type='submit'
+            width='20%'
+          >
+            Save
+          </Button>
+        )}
+
         <Button
           className={`${classes.button} ${classes.buttonDelete}`}
           variant='contained'
