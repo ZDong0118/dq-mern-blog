@@ -18,7 +18,7 @@ const App = () => {
   }, [currentId, dispatch]);
 
   return (
-    <Container maxWidth='lg' minWidth='xs' className={classes.container}>
+    <Container maxWidth='lg' className={classes.container}>
       <Typography className={classes.mainTitle} align='center'>
         NotePad Applications
       </Typography>
