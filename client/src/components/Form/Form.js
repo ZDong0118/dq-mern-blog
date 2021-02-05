@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import { TextField, Button, Paper, TextareaAutosize } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Paper } from '@material-ui/core';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { createNote } from '../../actions/notes-action';
 
 import useStyles from './Form.styles';
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
 
   const [noteData, setNoteData] = useState({
@@ -11,15 +14,25 @@ const Form = () => {
     note: '',
   });
 
+  const note = useSelector((state) =>
+    currentId ? state.notes.find((note) => note._id === currentId) : null
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (note) setNoteData(note);
+  }, [note]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log('handleSubmit');
+    dispatch(createNote(noteData));
+    clear();
   };
 
   const clear = () => {
-      setNoteData({ title: '', note: ''});
-  }
+    setCurrentId(0);
+    setNoteData({ title: '', note: '' });
+  };
 
   return (
     <Paper className={classes.paper}>
@@ -50,7 +63,7 @@ const Form = () => {
           type='submit'
           width='20%'
         >
-          Submit
+          Save
         </Button>
         <Button
           className={`${classes.button} ${classes.buttonDelete}`}

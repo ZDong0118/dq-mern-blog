@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const noteSchema = mongoose.Schema({
-  title: string,
-  note: string,
+  title: String,
+  note: String,
   createdAt: {
     type: Date,
     default: new Date(),

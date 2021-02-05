@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+
+import { getNotes } from './actions/notes-action';
 
 import Form from './components/Form/Form';
 
 const App = () => {
+  const [currentId, setCurrentId] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getNotes());
+  }, [currentId, dispatch]);
+
   return (
     <Container maxWidth='lg'>
       <Typography align='center'>NotePad Applications</Typography>
       <Container>
         <Grid
           container
-          direction="column"
-          justify="flex-start"
-          alignItems="flex-start"
+          direction='column'
+          justify='flex-start'
+          alignItems='flex-start'
         >
           <Grid item xs={12}>
-            <Form />
+            <Form currentId={currentId} setCurrentId={setCurrentId} />
           </Grid>
           <Grid item xs={12}>
             Test Note Content
