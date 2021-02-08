@@ -4,9 +4,9 @@ Because I have issue in connecting the github/gists api, so I create a basic CRU
 
 The Front End Application is built up with 
 
-#####React
-#####Redux
-#####Material-ui
+React
+Redux
+Material-ui
 
 ## Installation
 
